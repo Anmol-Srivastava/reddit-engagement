@@ -43,6 +43,7 @@ def main(oauth_filepath=DEFAULT_OAUTH_LOC, db_path=DEFAULT_DB_LOC):
     # scheduler.start()
 
     # first time load way more, then do 200 at a time?
+    # do in background #AND CHECK THAT PROCESS DOESN'T DIE OR CAN RESTART
     launch_retrieval(redditor, 'down')
 
  
