@@ -10,15 +10,15 @@ def update_database(generator, mode, db_path):
     # connect to DB, table creation may be needed
     connection = sqlite3.connect(db_path)
     cursor = connection.cursor()
-    table_args = 'id TEXT PRIMARY KEY, title TEXT, subreddit TEXT, time TIMESTAMP, action TEXT'
+    table_args = 'id TEXT PRIMARY KEY, title TEXT, subreddit TEXT, access_time TIMESTAMP, action TEXT'
     create_table = '''CREATE TABLE IF NOT EXISTS activity (%s);''' % table_args
     cursor.execute(create_table)
 
     # for every submission, create sql entry
     for item in generator:
-        item_ts = dt.datetime.fromtimestamp(item.created_utc)
-        values = (item.id, item.title, item.subreddit.display_name, item_ts, mode)
-        insert_into = '''INSERT INTO activity VALUES (?,?,?,?,?);'''
+        current_time = dt.datetime.now().strftime('%m/%d/%Y %H:%M:%S')
+        values = (item.id, item.title, item.subreddit.display_name, current_time, mode)
+        insert_into = '''INSERT OR IGNORE INTO activity VALUES (?,?,?,?,?);'''
         cursor.execute(insert_into, values)
         connection.commit()
 
