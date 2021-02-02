@@ -1,0 +1,42 @@
+2021-02-01 11:04:03.118169 | Inserted into DB for up mode 
+2021-02-01 11:04:03.124142 | Finished retrieval for up mode 
+2021-02-01 11:04:03.592111 | Inserted into DB for down mode 
+2021-02-01 11:04:03.598352 | Finished retrieval for down mode 
+2021-02-01 11:05:02.702033 | Inserted into DB for down mode 
+2021-02-01 11:05:02.707506 | Finished retrieval for down mode 
+2021-02-01 11:05:03.347963 | Inserted into DB for up mode 
+2021-02-01 11:05:03.353256 | Finished retrieval for up mode 
+2021-02-01 11:06:02.462001 | Inserted into DB for down mode 
+2021-02-01 11:06:02.470123 | Finished retrieval for down mode 
+2021-02-01 11:06:03.249288 | Inserted into DB for up mode 
+2021-02-01 11:06:03.256541 | Finished retrieval for up mode 
+2021-02-01 11:07:02.711208 | Inserted into DB for down mode 
+2021-02-01 11:07:02.718160 | Finished retrieval for down mode 
+2021-02-01 11:07:03.159103 | Inserted into DB for up mode 
+2021-02-01 11:07:03.165778 | Finished retrieval for up mode 
+2021-02-01 12:00:02.720524 | Inserted into DB for down mode 
+2021-02-01 12:00:02.729216 | Finished retrieval for down mode 
+2021-02-01 12:00:04.109988 | Inserted into DB for up mode 
+2021-02-01 12:00:04.118680 | Finished retrieval for up mode 
+2021-02-01 13:00:04.435467 | Inserted into DB for up mode 
+2021-02-01 13:00:04.444441 | Finished retrieval for up mode 
+2021-02-01 13:00:07.994291 | Inserted into DB for down mode 
+2021-02-01 13:00:08.002932 | Finished retrieval for down mode 
+2021-02-01 14:00:04.172836 | Inserted into DB for up mode 
+2021-02-01 14:00:04.179636 | Finished retrieval for up mode 
+2021-02-01 14:00:05.259693 | Inserted into DB for down mode 
+2021-02-01 14:00:05.267719 | Finished retrieval for down mode 
+2021-02-01 15:00:04.803145 | Inserted into DB for down mode 
+2021-02-01 15:00:04.808578 | Finished retrieval for down mode 
+2021-02-01 15:00:04.817916 | Inserted into DB for up mode 
+2021-02-01 15:00:04.822727 | Finished retrieval for up mode 
+2021-02-01 16:00:04.093294 | Inserted into DB for down mode 
+2021-02-01 16:00:04.098094 | Finished retrieval for down mode 
+2021-02-01 16:00:04.425115 | Inserted into DB for up mode 
+2021-02-01 16:00:04.430389 | Finished retrieval for up mode 
+2021-02-01 19:01:07.047226 | Inserted into DB for up mode 
+2021-02-01 19:02:00.676712 | Finished retrieval for up mode 
+2021-02-01 20:10:01.500009 | Inserted into DB for down mode 
+2021-02-01 20:10:01.505900 | Finished retrieval for down mode 
+2021-02-01 20:10:34.297528 | Inserted into DB for up mode 
+2021-02-01 20:10:34.302311 | Finished retrieval for up mode 

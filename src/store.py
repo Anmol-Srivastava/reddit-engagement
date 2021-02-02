@@ -3,7 +3,7 @@ import sqlite3
 import datetime as dt
 
 
-DEFAULT_LOG_LOC = '../../reddit-engagement-files/log.txt'
+DEFAULT_LOG_LOC = '../logs/log.txt'
 
 
 def update_database(generator, mode, db_path):
@@ -31,7 +31,7 @@ def update_database(generator, mode, db_path):
 def logger(info, log_path=DEFAULT_LOG_LOC):
     # create current log entry
     timestamp = dt.datetime.now()
-    entry = '%s | %s' % (timestamp, info)
+    entry = '%s | %s \n' % (timestamp, info)
 
     # log to end of file if exists, else make
     write_mode = 'a' if os.path.exists(log_path) else 'w'
