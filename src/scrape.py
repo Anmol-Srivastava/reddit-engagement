@@ -3,7 +3,8 @@ import datetime as dt
 import fire
 import json
 
-# from apscheduler.schedulers.blocking import BlockingScheduler
+from apscheduler.schedulers.background import BackgroundScheduler
+from apscheduler.schedulers.blocking import BlockingScheduler
 
 from store import update_database
 from store import logger
@@ -13,47 +14,64 @@ GENERATOR_LIMIT = 100
 DEFAULT_OAUTH_LOC = '../../reddit-engagement-files/oauth.json'
 DEFAULT_DB_LOC = '../../reddit-engagement-files/activity.db'
 
-def launch_retrieval(redditor, mode, db_path=DEFAULT_DB_LOC, limit=GENERATOR_LIMIT):
+
+def launch_retrieval(oauth_filepath, db_path, limit):
+    # connect to reddit
+    retries = 0
+    while retries < 10:
+        try:
+            connection_params = json.load(open(oauth_filepath, 'r'))
+            reddit = praw.Reddit(**connection_params)
+            redditor = reddit.user.me()
+            retries = 10
+        except e:
+            logger('Error at connection time.')
+            print(repr(e))
+            retries += 1
+    
     # only downvote/upvote retrieval supported now
-    if mode == 'down':
-        generator = redditor.downvoted(limit=limit)
-    elif mode == 'up':
-        generator = redditor.upvoted(limit=limit)
-    else:
-        raise ValueError('Cannot interpret mode', mode)
+    retries = 0
+    while retries < 10:
+        try:
+            upvote_gen = redditor.upvoted(limit=limit)
+            downvote_gen = redditor.downvoted(limit=limit)
+            retries = 10
+        except e:
+            logger('Error at generator time.')
+            print(repr(e))
+            retries += 1
 
     # send generator to sqlite3 storage and log progress
-    update_database(generator, mode, db_path)
-    logger('Finished retrieval for %s mode' % mode)
+    retries = 0
+    while retries < 10:
+        try:
+            update_database(upvote_gen, 'up', db_path)
+            update_database(downvote_gen, 'down', db_path)
+            retries = 10
+        except e:
+            logger('Internal error at storage time.')
+            print(repr(e))
+            retries += 1
 
+    # attempt flushing
+    retries = None
+    connection_params = None
+    redditor = None
+    upvote_gen = None
+    downvote_gen = None
+
+    
 def main(oauth_filepath=DEFAULT_OAUTH_LOC, db_path=DEFAULT_DB_LOC, first_launch=False):
-    # connect to reddit
-    connection_params = json.load(open(oauth_filepath, 'r'))
-    reddit = praw.Reddit(**connection_params)
-    redditor = reddit.user.me()
-
     # first-time info-dump
     if first_launch:
-        launch_retrieval(redditor, 'down', limit=None)
-        launch_retrieval(redditor, 'up', limit=None)
+        launch_retrieval(oauth_filepath, db_path, limit=None)
 
-    # runtime connection issue fix unknown, currently avoiding error-handling until resolved
-    # scheduler = BlockingScheduler()
-    # scheduler.add_job(launch_retrieval, 'cron', args=[redditor, 'down', db_path], minute=0)
-    # scheduler.add_job(launch_retrieval, 'cron', args=[redditor, 'up', db_path], minute=0)
-    # scheduler.start()
-    
-    # schedule data retrieval for every start of hour manually, so can handle errors
-    while True:
-        if dt.datetime.now().minute == 0:
-            try:
-                launch_retrieval(redditor, 'down', db_path)
-                launch_retrieval(redditor, 'up', db_path)
-            except e:
-                launch_retrieval(redditor, 'down', db_path)
-                launch_retrieval(redditor, 'up', db_path)
-            print(dt.datetime.now().hour)
-            
+    # runtime connection issue fix unknown
+    scheduler = BlockingScheduler()
+    scheduler.add_job(launch_retrieval, 'cron', args=[oauth_filepath, db_path, GENERATOR_LIMIT], minute=0)
+    scheduler.add_job(launch_retrieval, 'cron', args=[oauth_filepath, db_path, GENERATOR_LIMIT], minute=0)
+    scheduler.start()
+
 
 if __name__ == '__main__':
     fire.Fire(main)
