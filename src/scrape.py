@@ -24,9 +24,8 @@ def launch_retrieval(oauth_filepath, db_path, limit):
             reddit = praw.Reddit(**connection_params)
             redditor = reddit.user.me()
             retries = 10
-        except e:
+        except:
             logger('Error at connection time.')
-            print(repr(e))
             retries += 1
     
     # only downvote/upvote retrieval supported now
@@ -36,9 +35,8 @@ def launch_retrieval(oauth_filepath, db_path, limit):
             upvote_gen = redditor.upvoted(limit=limit)
             downvote_gen = redditor.downvoted(limit=limit)
             retries = 10
-        except e:
+        except:
             logger('Error at generator time.')
-            print(repr(e))
             retries += 1
 
     # send generator to sqlite3 storage and log progress
@@ -48,9 +46,8 @@ def launch_retrieval(oauth_filepath, db_path, limit):
             update_database(upvote_gen, 'up', db_path)
             update_database(downvote_gen, 'down', db_path)
             retries = 10
-        except e:
+        except:
             logger('Internal error at storage time.')
-            print(repr(e))
             retries += 1
 
     # attempt flushing
