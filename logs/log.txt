@@ -402,3 +402,5 @@
 2021-02-06 14:00:08.454189 | Inserted into DB for down mode 
 2021-02-06 15:00:03.572867 | Inserted into DB for up mode 
 2021-02-06 15:00:04.196569 | Inserted into DB for up mode 
+2021-02-06 15:00:07.493853 | Inserted into DB for down mode 
+2021-02-06 15:00:08.700125 | Inserted into DB for down mode 
